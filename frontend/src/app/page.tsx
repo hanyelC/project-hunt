@@ -1,11 +1,11 @@
 import { Header } from '@/components/header';
-import { ProjectCard } from '@/components/project-card';
+import { TrendingProjectsSection } from '@/components/trending-projects-section';
 
 export default function Home() {
   return (
     <div>
       <Header />
-      <ProjectCard upvoteCount={329} />
+      <TrendingProjectsSection />
     </div>
   );
 }
