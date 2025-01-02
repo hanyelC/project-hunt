@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <ProjectCard />
+      <ProjectCard upvoteCount={329} />
     </div>
   );
 }
