@@ -1,32 +1,23 @@
 import { ProjectCard } from '@/components/project-card';
 
-export const TrendingProjectsSection: React.FC = () => {
-  const projects = [
-    {
-      id: 1,
-      name: 'bestinha',
-      description: 'just imagine a great description here right now',
-      categories: ['SaaS', 'AI', 'API'],
-      upvoteCount: 10,
-      avatarUrl: 'https://github.com/shadcn.png',
-    },
-    {
-      id: 2,
-      name: 'bestinha 02',
-      description: 'just imagine a great description here right now',
-      categories: ['SaaS', 'AI', 'API'],
-      upvoteCount: 105,
-      avatarUrl: 'https://github.com/shadcn.png',
-    },
-    {
-      id: 3,
-      name: 'bestinha 03',
-      description: 'just imagine a great description here right now',
-      categories: ['SaaS', 'AI'],
-      upvoteCount: 115,
-      avatarUrl: 'https://github.com/shadcn.png',
-    },
-  ];
+type Category = {
+  id: number;
+  name: string;
+};
+
+type Project = {
+  id: number;
+  avatarUrl: string;
+  description: string;
+  name: string;
+  upvoteCount: number;
+  categories: Category[];
+};
+
+export const TrendingProjectsSection: React.FC = async () => {
+  const data = await fetch('http://localhost:3001/projects');
+  const projects: Project[] = await data.json();
+
   return (
     <section>
       <h1 className="text-2xl font-bold mb-3 ml-3">The next great App 👇</h1>
@@ -35,11 +26,11 @@ export const TrendingProjectsSection: React.FC = () => {
           <ProjectCard
             key={p.id}
             avatarUrl={p.avatarUrl}
-            categories={p.categories}
+            categories={p.categories.map((c) => c.name)}
             description={p.description}
             name={p.name}
             upvoteCount={p.upvoteCount}
-          ></ProjectCard>
+          />
         ))}
       </div>
     </section>
