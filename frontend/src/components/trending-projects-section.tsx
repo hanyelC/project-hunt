@@ -15,7 +15,7 @@ type Project = {
 };
 
 export const TrendingProjectsSection: React.FC = async () => {
-  const data = await fetch('http://localhost:3001/projects');
+  const data = await fetch(process.env.API_URL + '/projects');
   const projects: Project[] = await data.json();
 
   return (
