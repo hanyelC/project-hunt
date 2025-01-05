@@ -19,7 +19,8 @@ model Project {
   categories  Category[]
   description String
   name        String
-  upvoteCount Int        @map("upvote_count")
+  upVoteCount Int        @map("upvote_count")
+  upVote      UpVote[]
 
   @@map("projects")
 }
@@ -30,4 +31,21 @@ model Category {
   projects Project[]
 
   @@map("categories")
+}
+
+model UpVote {
+  id        Int     @id @default(autoincrement())
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int     @map("project_id")
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int
+
+  @@map("upvotes")
+}
+
+model User {
+  id     Int      @id @default(autoincrement())
+  upVote UpVote[]
+
+  @@map("users")
 }
