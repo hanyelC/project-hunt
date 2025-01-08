@@ -1,23 +1,27 @@
+'use server';
+
+import { ProjectCardActions } from '@/components/project-card-actions';
 import { AvatarFallback } from '@/components/ui/avatar';
 import { CardDescription, CardTitle } from '@/components/ui/card';
-import { UpvoteButton } from '@/components/upvote-button';
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
 import React from 'react';
 
-type ProjectCardProps = React.HTMLAttributes<HTMLDivElement> & {
+type ProjectCardProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'id'> & {
   avatarUrl: string;
   categories: string[];
   description: string;
   name: string;
   upvoteCount: number;
+  id: number;
 };
 
-export const ProjectCard: React.FC<ProjectCardProps> = ({
+export const ProjectCard: React.FC<ProjectCardProps> = async ({
   avatarUrl,
   categories,
   description,
   name,
   upvoteCount,
+  id: id,
   ...rest
 }) => {
   return (
@@ -43,9 +47,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
           ))}
         </div>
       </div>
-      <div>
-        <UpvoteButton upvoteCount={upvoteCount} />
-      </div>
+
+      <ProjectCardActions upvoteCount={upvoteCount} id={id} upvoted={true} />
     </div>
   );
 };

@@ -15,7 +15,7 @@ type Project = {
 };
 
 export const TrendingProjectsSection: React.FC = async () => {
-  const data = await fetch(process.env.API_URL + '/projects');
+  const data = await fetch(process.env.NEXT_PUBLIC_API_URL + '/projects');
   const projects: Project[] = await data.json();
 
   return (
@@ -24,10 +24,11 @@ export const TrendingProjectsSection: React.FC = async () => {
       <div>
         {projects.map((p) => (
           <ProjectCard
-            key={p.id}
             avatarUrl={p.avatarUrl}
             categories={p.categories.map((c) => c.name)}
             description={p.description}
+            id={p.id}
+            key={p.id}
             name={p.name}
             upvoteCount={p.upvoteCount}
           />
