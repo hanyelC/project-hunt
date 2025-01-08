@@ -7,6 +7,7 @@ async function bootstrap() {
   if (!process.env.PORT) {
     throw new Error('missing required environment variable: PORT');
   }
+  app.enableCors();
   await app.listen(process.env.PORT);
 }
 bootstrap();
