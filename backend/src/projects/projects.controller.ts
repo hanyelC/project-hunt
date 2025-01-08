@@ -1,4 +1,11 @@
-import { Controller, Get, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Query,
+} from '@nestjs/common';
 import { ProjectsService } from 'src/projects/projects.service';
 
 @Controller('projects')
@@ -12,7 +19,24 @@ export class ProjectsController {
   }
 
   @Patch('/:id/upvote')
-  upvote() {
-    return this.projectsService.list();
+  upvote(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('userId', ParseIntPipe) userId: number, // TODO: remover apos adicionar autenticacao
+  ) {
+    return this.projectsService.upvote({
+      projectId: id,
+      userId,
+    });
+  }
+
+  @Patch('/:id/downvote')
+  downvote(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('userId', ParseIntPipe) userId: number, // TODO: remover apos adicionar autenticacao
+  ) {
+    return this.projectsService.downvote({
+      projectId: id,
+      userId,
+    });
   }
 }
